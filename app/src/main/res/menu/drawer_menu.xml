@@ -1,0 +1,51 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <group android:id="@+id/menu_group_1">
+        <!--<item-->
+            <!--android:id="@+id/User_Activities"-->
+            <!--android:title="User Activities" />-->
+
+        <item
+            android:id="@+id/About"
+            android:title="About Blendedd App" />
+        <item
+            android:id="@+id/User_Settings"
+            android:title="User Settings" />
+        <item
+            android:id="@+id/About_Us"
+            android:title="About Us" />
+        <item
+            android:id="@+id/work"
+            android:title="How Does It Work" />
+        <item
+            android:id="@+id/FAQ"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/Contact_Us"
+            android:title="Contact Us" />
+        <!--<item-->
+            <!--android:id="@+id/Stories"-->
+            <!--android:title="Stories" />-->
+        <item
+            android:id="@+id/Feedback"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/Privacy"
+            android:title="Privacy" />
+        <item
+            android:id="@+id/Terms"
+            android:title="Terms" />
+        <item
+            android:id="@+id/Logout"
+            android:title="Logout"/>
+    </group>
+    <!--<group android:id="@+id/menu_group_2">-->
+        <!--<item-->
+            <!--android:id="@+id/menu_settings"-->
+            <!--android:title="Settings" />-->
+        <!--<item-->
+            <!--android:id="@+id/menu_about"-->
+            <!--android:title="About" />-->
+    <!--</group>-->
+</menu>

@@ -1,0 +1,146 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.erginus.blendedd.CategoryItemDetailActivity">
+
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+android:fillViewport="true"
+        android:layout_marginLeft="10dp"
+       android:id="@+id/mainlay_scrll"
+        android:focusable="true"
+        android:scrollbarStyle="outsideInset"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+    <TextView
+        android:id="@+id/txt_availabilty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginBottom="7dp"
+        android:text="Availablle"
+        android:textColor="@color/ColorPrimary"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/text_title_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:focusable="true"
+            android:layout_gravity="center_horizontal"
+             />
+
+    </LinearLayout>
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
+                android:padding="7dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             >
+<com.erginus.blendedd.Commons.ExpandableHeightGridView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:numColumns="auto_fit"
+    android:id="@+id/gridview">
+
+</com.erginus.blendedd.Commons.ExpandableHeightGridView>
+<!--            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnWidth="110dp"
+                android:stretchMode="columnWidth"
+               android:numColumns="auto_fit"
+                android:adjustViewBounds="true"
+                android:id="@+id/gridview"
+                />-->
+        </LinearLayout>
+            <TextView
+                android:id="@+id/text_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:text="Description"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/text_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Available Hours("
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/pst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text=")" />
+
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/days"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="10dp"
+                android:focusable="false"
+                />
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
+

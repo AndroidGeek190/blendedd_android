@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.erginus.blendedd" >
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="\ 810278875760966" />
+
+        <activity
+            android:name=".SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+
+        <activity
+            android:name=".WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:label="@string/title_activity_forgot_password"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".CategoryItemActivity"
+            android:label="@string/title_activity_category_item"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".CategoryItemDetailActivity"
+            android:label="@string/title_activity_category_item_detail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".AddressActivity"
+            android:label="@string/title_activity_address"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".CreditCardInfoActivity"
+            android:label="@string/title_activity_credit_card_info"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
+        <activity
+            android:name=".CommunicationPrefrencesActivity"
+            android:label="@string/title_activity_communication_prefrences"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".UserHomeActivity"
+            android:label="@string/UserHomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".User_Settings"
+            android:label="@string/User_Settings"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".CheckoutActivity"
+            android:label="CheckoutActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".UserActivity"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Activity_Bank_Account_Info"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Post_Categories"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Add_Post_Contact_Detail"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Add_Post_Item_Detail"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Add_Post_Availability"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Add_Post_Images"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+        <activity
+            android:name=".Add_Post_Rates"
+            android:label="@string/title_activity_user"
+            android:theme="@style/AppTheme" >
+        </activity>
+    </application>
+
+</manifest>

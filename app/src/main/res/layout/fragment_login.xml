@@ -1,0 +1,176 @@
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+
+android:layout_margin="10dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="Blendedd Customer"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:padding="5dp"
+        android:id="@+id/textView2"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_weight="1"
+    android:layout_marginBottom="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:layout_weight="1"
+        >
+
+    <com.facebook.login.widget.LoginButton
+        xmlns:fb="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:layout_gravity="center_vertical"
+        fb:com_facebook_login_text=""
+        fb:com_facebook_logout_text=""
+        />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+android:gravity="end|right"
+       >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_register"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/register"/></LinearLayout>
+</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="OR"
+        android:textSize="14dp"
+        android:layout_weight="1"
+        android:id="@+id/textView3"
+        android:layout_gravity="center_vertical|center_horizontal"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_name1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/editText_email"
+        android:layout_marginTop="10dp"
+        android:hint="Enter Email"
+        android:textSize="15sp"
+        android:imeOptions="actionNext"
+        android:singleLine="true"
+
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/enter_email"
+        android:drawablePadding="10dp"
+
+        android:layout_gravity="center_vertical"/>
+</android.support.design.widget.TextInputLayout>
+<requestFocus/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/editText_password"
+        android:inputType="textPassword"
+        android:hint="Enter Password"
+        android:textSize="15sp"
+        android:imeOptions="actionDone"
+        android:singleLine="true"
+
+
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/password"
+        android:drawablePadding="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_vertical"/>
+</android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Forgotten Password"
+        android:textColor="@color/ColorPrimary"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/textView_forgot"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_login"
+        android:src="@drawable/login"
+        android:gravity="end"
+        />
+</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:drawablePadding="10dp"
+        android:drawableBottom="@drawable/grey_line"
+        android:text="New To Blendedd"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/textView6"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13dp"
+        android:textColor="@color/black"
+        android:text="Why do you need an account? "
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/textView7"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="11dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="10dp"
+        android:text="By creating an account you will be able to shop faster be upto date on an order's status and keep track f the order you have previously made."
+        android:id="@+id/textView8"/>
+
+
+
+</LinearLayout></ScrollView>

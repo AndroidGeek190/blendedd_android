@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <include
+        android:id="@+id/tool_bar"
+        layout="@layout/toolbar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Image"
+        android:id="@+id/post_image"
+        android:layout_weight="1"
+        android:layout_gravity="center"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        android:id="@+id/up"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"/>
+    </LinearLayout>
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/list"
+    android:clickable="true"></ListView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+
+        <!--android:layout_margin="10dp">-->
+        <!--<RadioGroup-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+            <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginLeft="20dp">-->
+<!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/one"-->
+    <!--android:gravity="center_horizontal|center_vertical"-->
+    <!--android:orientation="vertical">-->
+    <!--<ImageView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:id="@+id/image1"-->
+        <!--android:background="@drawable/plus_button"-->
+        <!--/>-->
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_marginLeft="20dp">&ndash;&gt;-->
+    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/radio1"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:checked="true"&ndash;&gt;-->
+       <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Remove Image"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:id="@+id/remove1"-->
+     <!--/>-->
+                <!--</LinearLayout>-->
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/two"-->
+                <!--android:gravity="center_horizontal|center_vertical"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_marginLeft="20dp">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:id="@+id/image2"-->
+                    <!--android:background="@drawable/plus_button"/>-->
+                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/radio2"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Remove Image"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:id="@+id/remove2"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginLeft="20dp">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/three"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:gravity="center_horizontal|center_vertical"-->
+                <!--android:orientation="vertical">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:id="@+id/image3"-->
+                    <!--android:background="@drawable/plus_button"/>-->
+
+                    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/radio3"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Remove Image"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:id="@+id/remove3"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/four"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:gravity="center_horizontal|center_vertical"-->
+                <!--android:orientation="vertical">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:id="@+id/image4"-->
+                    <!--android:background="@drawable/plus_button"/>-->
+                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/radio4"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Remove Image"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:id="@+id/remove4"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_marginLeft="20dp">-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/five"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:gravity="center_horizontal|center_vertical"-->
+                <!--android:orientation="vertical">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:id="@+id/image5"-->
+                    <!--android:background="@drawable/plus_button"/>-->
+             <!--&lt;!&ndash; &ndash;&gt;-->
+                    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/radio5"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Remove Image"-->
+                        <!--android:layout_marginTop="20dp"-->
+                        <!--android:id="@+id/remove5"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+            <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/six"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:gravity="center_horizontal|center_vertical"-->
+                <!--android:orientation="vertical">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="150dp"-->
+                    <!--android:scaleType="fitXY"-->
+                    <!--android:adjustViewBounds="true"-->
+                    <!--android:id="@+id/image6"-->
+                    <!--android:background="@drawable/plus_button"/>-->
+                <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:orientation="vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_marginLeft="20dp">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<RadioButton&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="Set Featured image"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/radio6"&ndash;&gt;-->
+                        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Remove Image"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:id="@+id/remove6"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+            <!--</LinearLayout>-->
+
+
+
+
+        <!--</RadioGroup>-->
+        <!--</LinearLayout>-->
+    </ScrollView>
+</LinearLayout>

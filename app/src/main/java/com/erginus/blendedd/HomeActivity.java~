@@ -1,0 +1,770 @@
+package com.erginus.blendedd;
+
+
+
+import android.app.ProgressDialog;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+
+import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.erginus.blendedd.Adapter.CategoryItemsAdapter;
+import com.erginus.blendedd.Adapter.ViewPagerAdapter;
+import com.erginus.blendedd.CategoryModel.CategoryModel;
+import com.erginus.blendedd.Commons.MapAppConstant;
+import com.erginus.blendedd.Commons.SlidingTabLayout;
+import com.erginus.blendedd.Commons.VolleySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+public class HomeActivity extends ActionBarActivity {
+
+    // Declaring Your View and Variables
+    Toolbar toolbar;
+    ViewPager pager;
+    ViewPagerAdapter adapter;
+    public static SlidingTabLayout tabs;
+    CharSequence Titles[] = {"Home", "Categories", "Login"};
+    int Numboftabs = 3;
+    ImageView img_menu, img_search, img_back;
+    TextView txtVw_title, txtView;
+    String[] title;
+    DrawerLayout drawerLayout;
+    ListView listView;
+    LinearLayout linearLayout;
+    ActionBarDrawerToggle mDrawerToggle;
+    private CharSequence mDrawerTitle;
+    String sign_up_info, about_us, how_does_it_work, faq, contact_us, post_id,stories, feedback, privacy, terms, cat_title;
+    ListView categoryItemListView;
+    List<CategoryModel> categoryItemList, horizontalImageList;
+    CategoryItemsAdapter categoryItemsAdapter;
+    String image, price, city_name, state_code, city_id, tiTle,tile_shadow,  post_desc, post_status, min_price,daily_price,
+            weekly_price, monthly_price;;
+    EditText edt_search;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    int page=0;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_home);
+
+        // Creating The Toolbar and setting it as the Toolbar for the activity
+
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        txtVw_title = (TextView) toolbar.findViewById(R.id.toolbar_title);
+       txtView = (TextView) toolbar.findViewById(R.id.text_title);
+        horizontalImageList=new ArrayList<>();
+
+        //   txtVw_title.setVisibility(View.GONE);
+        edt_search = (EditText) toolbar.findViewById(R.id.editText_search);
+        categoryItemListView = (ListView) findViewById(R.id.listView_categry);
+        listView = (ListView) findViewById(R.id.listview_drawer);
+        linearLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        setSupportActionBar(toolbar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+
+        }
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
+        title = new String[]{"About Us", "How Does It Work", "FAQ",
+                "Contact Us", "Stories", "Feedback", "Privacy", "Terms"};
+        categoryItemList = new ArrayList<>();
+        ArrayAdapter<String> drawerAdapter = new ArrayAdapter<String>(
+                getBaseContext(), R.layout.drawer_list_item, title
+        );
+        mSwipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true);
+        // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
+
+        listView.setAdapter(drawerAdapter);
+        listView.setOnItemClickListener(new DrawerItemClickListener());
+        if (drawerLayout != null) {
+            drawerLayout.setDrawerShadow(R.drawable.list_back, GravityCompat.START);
+
+            mDrawerToggle = new ActionBarDrawerToggle(HomeActivity.this, drawerLayout,
+                    toolbar, R.string.drawer_open, R.string.drawer_close) {
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                        invalidateOptionsMenu();
+                }
+
+                public void onDrawerOpened(View drawerView) {
+                    getSupportActionBar().setTitle(mDrawerTitle);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    super.onDrawerOpened(drawerView);
+
+                    invalidateOptionsMenu();
+
+                }
+            };
+            drawerLayout.setDrawerListener(mDrawerToggle);
+
+        }
+
+        // Assiging the Sliding Tab Layout View
+
+        GetStrings();
+        categoryItemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                categoriesItemDetail(categoryItemList.get(position).getPostId());
+
+            }
+        });
+
+    }
+
+
+    void onItemsLoadComplete() {
+        // Update the adapter and notify data set changed
+        // ...
+
+        // Stop refresh animation
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+
+    protected void onPostCreate(Bundle savedInstanceState) {
+
+        super.onPostCreate(savedInstanceState);
+
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+
+        mDrawerToggle.syncState();
+
+    }
+
+
+    @Override
+
+    public void onConfigurationChanged(Configuration newConfig) {
+
+        super.onConfigurationChanged(newConfig);
+
+        // Pass any configuration change to the drawer toggles
+
+        mDrawerToggle.onConfigurationChanged(newConfig);
+
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            drawerLayout.closeDrawer(linearLayout);
+
+            if (position == 0) {
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", about_us);
+                intent.putExtra("title", "About Us");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+            if (position == 1) {
+
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", how_does_it_work);
+                intent.putExtra("title", "How Does It Work");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+
+
+            if (position == 2) {
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", faq);
+                intent.putExtra("title", "FAQ");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+            if (position == 3) {
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", contact_us);
+                intent.putExtra("title", "Contact Us");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+            if (position == 4) {
+
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", stories);
+                intent.putExtra("title", "Stories");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+
+            }
+            if (position == 5) {
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", feedback);
+                intent.putExtra("title", "Feedback");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+            if (position == 6) {
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", privacy);
+                intent.putExtra("title", "Privacy");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+
+            if (position == 7) {
+
+
+                Intent intent = new Intent(HomeActivity.this, WebViewActivity.class);
+                intent.putExtra("url", terms);
+                intent.putExtra("title", "Terms");
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+
+
+        }
+    }
+
+    public void GetStrings() {
+        try {
+            final ProgressDialog pDialog = new ProgressDialog(HomeActivity.this);
+            pDialog.setMessage("Loading...");
+            pDialog.show();
+
+            Log.e("", "Strings" + MapAppConstant.API + "/strings");
+            StringRequest sr = new StringRequest(Request.Method.POST, MapAppConstant.API + "/strings", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    pDialog.dismiss();
+                    ;
+                    Log.d("", ".......response====" + response.toString());
+
+                    ////////
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        String serverCode = object.getString("code");
+                        String serverMessage = object.getString("message");
+                        Toast.makeText(HomeActivity.this, "" + serverMessage, Toast.LENGTH_SHORT).show();
+                        if (serverCode.equalsIgnoreCase("0")) {
+
+                        }
+                        if (serverCode.equalsIgnoreCase("1")) {
+                            try {
+
+                                if ("1".equals(serverCode)) {
+                                    JSONObject object1 = object.getJSONObject("data");
+                                    about_us = object1.getString("about_us");
+                                    sign_up_info = object1.getString("signup_info");
+                                    how_does_it_work = object1.getString("how_does_it_work");
+                                    faq = object1.getString("faq");
+                                    contact_us = object1.getString("contact_us");
+                                    stories = object1.getString("stories");
+                                    feedback = object1.getString("feedback");
+                                    privacy = object1.getString("privacy");
+                                    terms = object1.getString("terms");
+                                    Log.d("mcrtbkeurrrrrrrrrr", about_us + " " + sign_up_info + " " + how_does_it_work);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismiss();
+                    ;
+                    //  VolleyLog.d("", "Error: " + error.getMessage());
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(HomeActivity.this, "Timeout Error",
+                                Toast.LENGTH_LONG).show();
+                    } else if (error instanceof AuthFailureError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ServerError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof NetworkError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ParseError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    }
+                }
+            }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("current_timestamp", "1");
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(100000 * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            sr.setShouldCache(true);
+            VolleySingleton.getInstance(HomeActivity.this.getApplicationContext()).addToRequestQueue(sr);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void categoriesItemList(final String search) {
+        try {
+            final ProgressDialog pDialog = new ProgressDialog(HomeActivity.this);
+            pDialog.setMessage("Loading...");
+            pDialog.show();
+
+            Log.e("", "Strings" + MapAppConstant.API + "/search");
+            StringRequest sr = new StringRequest(Request.Method.POST, MapAppConstant.API + "/search", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    pDialog.dismiss();
+                    ;
+                    Log.d("", ".......response====" + response.toString());
+
+                    ////////
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        String serverCode = object.getString("code");
+                        String serverMessage = object.getString("message");
+                        Toast.makeText(HomeActivity.this, "" + serverMessage, Toast.LENGTH_SHORT).show();
+                        if (serverCode.equalsIgnoreCase("0")) {
+
+                        }
+                        if (serverCode.equalsIgnoreCase("1")) {
+                            try {
+                             int offset=0;
+                                if ("1".equals(serverCode)) {
+                                    JSONArray jsonArray = object.getJSONArray("data");
+                                    if (jsonArray.length() > 0) {
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                             int  category_id= Integer.parseInt(jsonObject.getString("category_id"));
+                                            cat_title = jsonObject.getString("post_title");
+                                            image = jsonObject.getString("post_image_url");
+                                            state_code = jsonObject.getString("state_code");
+                                            city_id = jsonObject.getString("post_zipcode");
+                                            city_name = jsonObject.getString("city_name");
+                                            post_desc = jsonObject.getString("post_description");
+                                            price = jsonObject.getString("post_display_price");
+                                            post_id=jsonObject.getString("post_id");
+                                            categoryItemList.add(0,categoryItemModel(cat_title, image, state_code, city_id, city_name, post_desc, price, post_id));
+                                            if (category_id >= offset)
+                                                offset = category_id;
+                                        }
+                                    }
+                                    setCategoryList(categoryItemList);
+                                }
+                                if (categoryItemListView.getAdapter() == null) {
+                                    categoryItemsAdapter = new CategoryItemsAdapter(HomeActivity.this, categoryItemList);
+                                    categoryItemListView.setAdapter(categoryItemsAdapter);
+                                    Log.d("i am here at adapter", "jhjgxbexey");
+
+                                }
+                                else
+                                {
+                                    categoryItemsAdapter.notifyDataSetChanged();
+
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismiss();
+                    ;
+                    //  VolleyLog.d("", "Error: " + error.getMessage());
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(HomeActivity.this, "Timeout Error",
+                                Toast.LENGTH_LONG).show();
+                    } else if (error instanceof AuthFailureError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ServerError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof NetworkError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ParseError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    }
+                }
+            }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("search_term", search);
+                    params.put("page", page+"");
+
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(100000 * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            sr.setShouldCache(true);
+            VolleySingleton.getInstance(HomeActivity.this.getApplicationContext()).addToRequestQueue(sr);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public List<CategoryModel> getCategorylist() {
+        return categoryItemList;
+    }
+
+    public void setCategoryList(List<CategoryModel> categry_list) {
+        this.categoryItemList = categry_list;
+    }
+
+    private CategoryModel categoryItemModel(String title, String image, String statecode, String city_id, String city_name, String post_desc, String price, String post_id )
+    {
+        CategoryModel model = new CategoryModel();
+        model.setCategoryTitle(title);
+        model.setImage(image);
+        model.setStateCode(statecode);
+        model.setCityId(city_id);
+        model.setCityName(city_name);
+        model.setPostDescription(post_desc);
+        model.setPrice(price);
+        model.setPostId(post_id);
+        return model;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        // Retrieve the SearchView and plug it into SearchManager
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        //searchView.setQueryHint(getString(R.string.search));
+        if (null != searchView) {
+            searchView.setSearchableInfo(searchManager
+                    .getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+        }
+        searchView.clearFocus();
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
+        });
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+
+            public boolean onQueryTextChange(String newText) {
+                // this is your adapter that will be filtered
+
+                return true;
+            }
+
+            public boolean onQueryTextSubmit(String query) {
+                //Here u can get the value "query" which is entered in the search box.
+                 query=searchView.getQuery().toString();
+                pager.setVisibility(View.GONE);
+                tabs.setVisibility(View.GONE);
+                getCategorylist().clear();
+                searchView.clearFocus();
+                categoryItemListView.setVisibility(View.VISIBLE);
+                mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+                categoriesItemList(query);
+                final String finalQuery = query;
+                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+
+                        // Refresh items
+                        page++;
+                        categoriesItemList(finalQuery);
+                        // Load complete
+                        onItemsLoadComplete();
+
+                    }
+                });
+
+
+                return true;
+            }
+        };
+        searchView.setOnQueryTextListener(queryTextListener);
+
+
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        MenuItemCompat.setOnActionExpandListener(searchMenuItem, new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+
+                pager.setVisibility(View.VISIBLE);
+                tabs.setVisibility(View.VISIBLE);
+                categoryItemListView.setVisibility(View.GONE);
+                mSwipeRefreshLayout.setVisibility(View.GONE);
+                return true;
+
+            }
+        }) ;
+
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // app icon in action bar clicked; goto parent activity.
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    public void setImageList(List<CategoryModel> categry_list) {
+        this.horizontalImageList = categry_list;
+    }
+    public List<CategoryModel> getImagelist() {
+        return horizontalImageList;
+    }
+
+    private CategoryModel categoryItemModel1( String image)
+    {
+        CategoryModel model=new CategoryModel();
+        model.setImage(image);
+        return  model;
+    }
+    public void categoriesItemDetail(final String post_id)
+    {
+        try {
+            final ProgressDialog pDialog = new ProgressDialog(HomeActivity.this);
+            pDialog.setMessage("Loading...");
+            pDialog.show();
+
+            Log.e("", "Strings" + MapAppConstant.API + "/view");
+            StringRequest sr = new StringRequest(Request.Method.POST,MapAppConstant.API+"/view", new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    pDialog.dismiss();
+                    ;
+                    Log.d("", ".......response====" + response.toString());
+
+                    ////////
+                    try {
+                        JSONObject object = new JSONObject(response);
+                        String serverCode = object.getString("code");
+                        String serverMessage = object.getString("message");
+                        if (serverCode.equalsIgnoreCase("0")) {
+
+                        }
+                        if (serverCode.equalsIgnoreCase("1")) {
+                            try {
+                                 getImagelist().clear();
+                                if ("1".equals(serverCode)) {
+                                    JSONObject jsonObject=object.getJSONObject("data");
+                                    tiTle=jsonObject.getString("post_title");
+                                    tile_shadow=jsonObject.getString("post_title_shadow");
+                                    state_code=jsonObject.getString("state_code");
+                                    city_id=jsonObject.getString("post_zipcode");
+                                    city_name=jsonObject.getString("city_name");
+                                    post_desc=jsonObject.getString("post_description");
+                                    post_status=jsonObject.getString("post_status");
+                                    min_price=jsonObject.getString("post_min_price");
+                                    daily_price=jsonObject.getString("post_daily_price");
+                                    weekly_price=jsonObject.getString("post_weekly_price");
+                                    monthly_price=jsonObject.getString("post_monthly_price");
+                                    JSONArray jsonArray=jsonObject.getJSONArray("post_images_array");
+                                    if (jsonArray.length() > 0) {
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+                                            image=jsonObject1.getString("post_image_url");
+                                            horizontalImageList.add(categoryItemModel1(image));
+                                        }}
+
+                                    setImageList(horizontalImageList);
+
+
+                                }
+
+                            }
+
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            Intent intent=new Intent(HomeActivity.this, CategoryItemDetailActivity.class);
+                            intent.putExtra("title",tiTle);
+                            intent.putExtra("titleShadow",tile_shadow);
+                            intent.putExtra("desc",post_desc);
+                            intent.putExtra("image", (Serializable) horizontalImageList);
+                            intent.putExtra("status",post_status);
+                            intent.putExtra("min_price",min_price);
+                            intent.putExtra("daily_price",daily_price);
+                            intent.putExtra("weekly_price",weekly_price);
+                            intent.putExtra("monthly_price",monthly_price);
+                            startActivity(intent);
+                            overridePendingTransition(0,0);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    pDialog.dismiss();
+                    ;
+                    //  VolleyLog.d("", "Error: " + error.getMessage());
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(HomeActivity.this, "Timeout Error",
+                                Toast.LENGTH_LONG).show();
+                    } else if (error instanceof AuthFailureError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ServerError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof NetworkError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    } else if (error instanceof ParseError) {
+                        VolleyLog.d("", "" + error.getMessage() + "," + error.toString());
+                    }
+                }
+            }
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put("post_id", post_id);
+
+                    return params;
+                }
+            };
+            sr.setRetryPolicy(new DefaultRetryPolicy(100000*2,DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            sr.setShouldCache(true);
+            VolleySingleton.getInstance(HomeActivity.this.getApplicationContext()).addToRequestQueue(sr);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        pager.setVisibility(View.VISIBLE);
+        tabs.setVisibility(View.VISIBLE);
+        categoryItemListView.setVisibility(View.GONE);
+        mSwipeRefreshLayout.setVisibility(View.GONE);
+    }
+
+}

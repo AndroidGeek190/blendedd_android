@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/mainlay_scrll"
+            android:layout_width="match_parent"
+            android:background="@android:color/white"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center"
+            tools:context="com.erginus.fithealthy.SignUpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/toolbar"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Communication Prefrences"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/textView11"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_red_light"
+                android:text="*"
+                android:gravity="top"
+                android:layout_marginTop="6dp"
+                android:id="@+id/textView12"/></LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_describstn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/ll_radiogroup_gender"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:checked="true"
+                android:enabled="false"
+                android:paddingLeft="7dp"
+                android:layout_weight="1"
+                android:id="@+id/checkBox_email"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:paddingLeft="7dp"
+                android:layout_weight="1"
+                android:id="@+id/checkBox_phone"/>
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Text"
+                android:paddingLeft="7dp"
+                android:layout_weight="1"
+                android:id="@+id/checkBox_text"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_de"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ll_radiogroup_gender"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+
+        android:paddingRight="10dp" >
+
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="7dp"
+            android:text="I would like to receive email notifications of the latest news, promotions and services offered by Blendedd."
+            android:id="@+id/checkBox"/>
+
+</LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_del"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+
+            android:paddingRight="10dp" >
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I accept the User Terms and read the Privacy Policy"
+
+                android:paddingLeft="7dp"
+                android:id="@+id/checkBox_1"/>
+
+
+           <!-- <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="11dp"
+                android:text="User Terms "
+                android:id="@+id/text_terms"
+                android:textColor="@color/ColorPrimary"
+
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="11dp"
+                android:text="and read the "
+                android:id="@+id/text_view"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11dp"
+                android:text="Privacy Policy"
+                android:textColor="@color/ColorPrimary"
+                android:id="@+id/text_privacy"
+                />
+-->
+        </LinearLayout>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Submit"
+            android:gravity="center_vertical|center_horizontal"
+            android:id="@+id/button_continue"
+            android:background="@drawable/button"
+android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:layout_marginRight="10dp"
+            android:layout_gravity="right"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
